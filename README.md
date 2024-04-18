@@ -1,1 +1,0 @@
-# ucsc-cmpm120-cubey
