@@ -1,3 +1,12 @@
+/**
+ * Smiley.js
+ * CMPM 120
+ * L08: Cubey Keyboard
+ * 
+ * Yangyi Lu (Erik)
+ * ylu155@ucsc.edu
+ */
+
 class Smiley extends Phaser.Scene {
     constructor() {
         super("smileyScene");
@@ -62,17 +71,28 @@ class Smiley extends Phaser.Scene {
         // Since sprites are visible when created and we only want one smile to be shown
         // at a time, make the "dimple" smile not visible to start.
         my.sprite.dimple.visible = false;
-        
+
         my.sprite.leftOpenHand.visible = true;
         my.sprite.rightOpenHand.visible = true;
         my.sprite.rightPeaceHand.visible = false;
-        
-        this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
-    }
 
+        this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
+        // Event input: dimple smile
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).on("down", () => {
+            my.sprite.smile.visible = false;
+            my.sprite.dimple.visible = true;
+        });
+
+        // Event input: regular smile
+        this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).on("down", () => {
+            my.sprite.smile.visible = true;
+            my.sprite.dimple.visible = false;
+        });
+    }
     update() {
         let my = this.my;    // create an alias to this.my for readability
-    
+
         // Polling input: peace hand
         if (this.keyP.isDown) {
             my.sprite.rightOpenHand.visible = false;
@@ -81,10 +101,8 @@ class Smiley extends Phaser.Scene {
             my.sprite.rightOpenHand.visible = true;
             my.sprite.rightPeaceHand.visible = false;
         }
-
-        // Event input: dimple smile
-        // Event input: regular smile
-
+        
+        // note: event handling are done in create()
     }
 
 }
